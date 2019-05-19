@@ -6,10 +6,9 @@
 
     - todolist-vue: https://github.com/iris4865/todolist-vue
     - todolist-flask: https://github.com/iris4865/todolist-flask
-    - Dockerfile 생성
 
 2. Dockerfile은 Github에서 다운받은 코드와 같은 위치여야 합니다.
-    - 주소: https://github.com/iris4865/todolist-dockerfile
+    - 주소: https://github.com/iris4865/todolist-dockerfile/blob/master/Dockerfile
     - 임의의 위치: todolist-vue(폴더), todolist-flask(폴더), Dockerfile
 
 3. Docker 빌드
