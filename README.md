@@ -1,16 +1,18 @@
 # todolist-dockerfile
 
-Docker가 있어야 실행 가능합니다.
+## Docker가 있어야 실행 가능합니다.
 
 - Docker URL: https://hub.docker.com/r/iris4865/programmers-todo
 - Image 다운로드: docker pull iris4865/programmers-todo
 
-새로 이미지 생성 시 아래 규칙을 준수해야 합니다.
+## 새로 이미지 생성 시 아래 규칙을 준수해야 합니다.
 
 1. Github에서 다운받기
 
     - todolist-vue: https://github.com/iris4865/todolist-vue
+      - ex) git clone https://github.com/iris4865/todolist-vue.git
     - todolist-flask: https://github.com/iris4865/todolist-flask
+      - ex) git clone https://github.com/iris4865/todolist-flask.git
 
 2. Dockerfile은 Github에서 다운받은 코드와 같은 위치여야 합니다.
     - 주소: https://github.com/iris4865/todolist-dockerfile/blob/master/Dockerfile
