@@ -1,10 +1,15 @@
-# build
+# git clone
+FROM alpine/git as downloader
+RUN git clone https://github.com/iris4865/todolist-vue.git
+RUN git clone https://github.com/iris4865/todolist-flask.git
+
+# vue build
 FROM node:lts-alpine as build-vue
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY ./todolist-vue/package*.json ./
+COPY --from=downloader /todolist-vue/package*.json ./
 RUN npm install
-COPY ./todolist-vue .
+COPY --from=downloader /todolist-vue .
 RUN npm run build
 
 # production
@@ -19,11 +24,11 @@ RUN apk update && apk add --no-cache python3 && \
     rm -r /root/.cache
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 COPY --from=build-vue /app/dist /usr/share/nginx/html
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY ./todolist-flask/requirements.txt ./
+COPY --from=downloader /todolist-flask/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=downloader /todolist-flask/requirements.txt ./
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
-COPY ./todolist-flask .
+COPY --from=downloader /todolist-flask .
 CMD gunicorn -b 0.0.0.0:5000 app:app --daemon && \
       sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
       nginx -g 'daemon off;'
