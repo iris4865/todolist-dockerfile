@@ -1,16 +1,9 @@
-# git download
-FROM alpine as downloader
-RUN apk --update add git
-RUN git clone https://github.com/iris4865/todolist-vue.git
+#git download
+FROM alpine/git as downloader
+#RUN apk --update add git
 RUN git clone https://github.com/iris4865/todolist-flask.git
 
-# vue build
-FROM node:lts-alpine as build-vue
-WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY --from=downloader /todolist-vue .
-RUN npm install
-RUN npm run build
+FROM iris4865/programmers-todo-vue as build-vue
 
 # production
 FROM nginx:stable-alpine as production
